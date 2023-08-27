@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>{{ titleForm }}</h2>
+
+<mat-dialog-content [formGroup]="formPost" class="dialog-content-form">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+  <small class="text-danger" *ngIf="titleHasErrors">
+    This field is required.
+  </small>
+
+  <mat-form-field>
+    <mat-label>Body</mat-label>
+    <input matInput formControlName="body" />
+  </mat-form-field>
+  <small class="text-danger" *ngIf="bodyHasErrors">
+    This field is required.
+  </small>
+</mat-dialog-content>
+
+<mat-dialog-actions class="buttons-form">
+  <button mat-raised-button color="primary" (click)="closeDialogFormPost()">
+    Close
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveDialogFormPost()"
+    [disabled]="isFormInvalid"
+  >
+    {{ buttonText }}
+  </button>
+</mat-dialog-actions>

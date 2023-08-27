@@ -1,0 +1,10 @@
+@import "../../../../../stylesheets/styles";
+
+.search-container {
+  @include grid-center();
+
+  mat-form-field {
+    width: 400px;
+    margin-top: 20px;
+  }
+}

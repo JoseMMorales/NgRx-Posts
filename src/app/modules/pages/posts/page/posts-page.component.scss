@@ -1,0 +1,67 @@
+@import "../../../../stylesheets/styles";
+
+.accordion {
+  display: block;
+  margin: 0 10% 0 10%;
+
+  .accordion-item {
+    display: block;
+    border: solid 1px $gray;
+
+    .accordion-item-header {
+      @include flex-structure(none, center, space-between);
+
+      .post-card-container {
+        width: 100%;
+
+        mat-card-actions {
+          @include flex-structure(none, none, space-between);
+        }
+
+        .mat-mdc-card-avatar.header-image {
+          background-image: url("https://img.freepik.com/premium-vector/man-avatar-profile-round-icon_24640-14044.jpg?w=2000");
+          background-size: cover;
+        }
+      }
+    }
+
+    .accordion-item-header,
+    .accordion-item-body {
+      padding: 16px;
+    }
+
+    .accordion-item-header:hover {
+      cursor: pointer;
+      background-color: $gray;
+    }
+
+    .accordion-item:first-child {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .accordion-item:last-child {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    .accordion-item-body {
+      border-top: 1px solid $primary;
+
+      .comment-container {
+        h2 {
+          text-align: center;
+        }
+
+        .comment-from {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+.not-found-message {
+  @include grid-center();
+  height: 50vh;
+}

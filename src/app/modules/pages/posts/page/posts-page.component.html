@@ -1,0 +1,72 @@
+<app-search-posts
+  [postsToFilter]="postList"
+  (postsFiltered)="postsFiltered($event)"
+></app-search-posts>
+
+<ng-template [ngIf]="postToRender.length">
+  <cdk-accordion class="accordion">
+    <cdk-accordion-item
+      *ngFor="let post of postToRender; let index = index"
+      #accordionItem="cdkAccordionItem"
+      class="accordion-item"
+      role="button"
+      tabindex="0"
+      [attr.id]="'accordion-header-' + index"
+      [attr.aria-expanded]="accordionItem.expanded"
+      [attr.aria-controls]="'accordion-body-' + index"
+    >
+      <div class="accordion-item-header">
+        <mat-card class="post-card-container">
+          <mat-card-header>
+            <div mat-card-avatar class="header-image"></div>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{ post.body }}
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="primary" (click)="accordionItem.toggle()">
+              {{ accordionItem.expanded ? "Close Comments" : "Open Comments" }}
+            </button>
+            <div class="">
+              <button mat-button color="primary" (click)="updatePost(post)">
+                <mat-icon matPrefix>edit</mat-icon>
+              </button>
+              <button mat-button color="primary" (click)="deletePost(post.id)">
+                <mat-icon matPrefix>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div
+        class="accordion-item-body"
+        role="region"
+        [style.display]="accordionItem.expanded ? '' : 'none'"
+        [attr.id]="'accordion-body-' + index"
+        [attr.aria-labelledby]="'accordion-header-' + index"
+      >
+        <ng-container *ngIf="post.comments?.length">
+          <div class="comment-container">
+            <h2>Comment List</h2>
+            <div *ngFor="let comment of post.comments">
+              <p>
+                <span class="comment-from">Comment from:</span>
+                {{ comment.email }}
+              </p>
+              <p>{{ comment.body }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </cdk-accordion-item>
+  </cdk-accordion>
+</ng-template>
+
+<ng-template
+  [ngIf]="!postToRender.length && !(isGLobalSpinnerVisible$ | async)"
+>
+  <p class="not-found-message">
+    Sorry not Posts found in your search! Try again :)
+  </p>
+</ng-template>

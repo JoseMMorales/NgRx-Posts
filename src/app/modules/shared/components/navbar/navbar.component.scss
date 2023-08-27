@@ -1,0 +1,12 @@
+@import "../../../../stylesheets/styles";
+
+.toolbar-container {
+  @include flex-structure(none, none, space-between);
+
+  .logo {
+    img {
+      width: 50px;
+      vertical-align: middle;
+    }
+  }
+}

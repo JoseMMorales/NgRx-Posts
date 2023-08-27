@@ -1,0 +1,13 @@
+@import "../../../../stylesheets/styles";
+
+.spinner-container {
+  @include flex-structure(none, center, center);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: $backgroung-spinner;
+  z-index: 2000;
+}
