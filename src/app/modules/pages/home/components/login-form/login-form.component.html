@@ -1,0 +1,70 @@
+<mat-card class="login-page">
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input
+          matInput
+          type="email"
+          name="email"
+          required
+          email
+          placeholder="Email"
+          formControlName="email"
+        />
+      </mat-form-field>
+      <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+        <small class="error-message" *ngIf="email.errors?.['required']"
+          >The email is mandatory</small
+        >
+        <small class="error-message" *ngIf="email.errors?.['email']"
+          >This is not a valid email</small
+        >
+      </ng-container>
+
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          name="password"
+          placeholder="Password"
+          formControlName="password"
+          autocomplete="off"
+        />
+      </mat-form-field>
+
+      <ng-container
+        *ngIf="
+          password.invalid &&
+            (password.dirty || password.touched) &&
+            password.errors
+            | onlyOneError
+              : ['required', 'minlength', 'passwordSecure'] as error
+        "
+      >
+        <small class="error-message" *ngIf="error.required">
+          The password is mandatory
+        </small>
+
+        <small class="error-message" *ngIf="error.passwordSecure">
+          You must add UpperCase, LowerCase and numeric character
+        </small>
+
+        <small class="error-message" *ngIf="error.minlength">
+          Your Password must have between
+          {{ error.minlength.requiredLength }} and 15 chars, but it only has
+          {{ error.minlength.actualLength }}
+        </small>
+      </ng-container>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

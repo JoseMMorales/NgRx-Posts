@@ -17,6 +17,7 @@ import {
   updatePostsFailed,
   updatePostsSuccess,
 } from './posts.actions';
+import { Comment } from 'src/app/modules/shared/models/comment.model';
 
 const _postsReducer: ActionReducer<PostState, Action> = createReducer(
   initialState,
@@ -67,7 +68,7 @@ const _postsReducer: ActionReducer<PostState, Action> = createReducer(
     const postsArrayUpdated = postsInStore.map((postInStore) => {
       return {
         ...postInStore,
-        comments: action.comments.filter((comment: any) => {
+        comments: action.comments.filter((comment: Comment) => {
           return comment.postId === postInStore.id;
         }),
       };

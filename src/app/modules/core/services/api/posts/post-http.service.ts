@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 
 import { Post } from '../../../../shared/models/post.model';
+import { Comment } from 'src/app/modules/shared/models/comment.model';
 
 @Injectable()
 export class PostHttpService {
@@ -45,9 +46,9 @@ export class PostHttpService {
     return this.http.delete<void>(endPoint);
   }
 
-  getPostComments(): Observable<any> {
+  getPostComments(): Observable<Comment[]> {
     const endPoint: string = `${environment.baseURL}/comments`;
 
-    return this.http.get<any>(endPoint);
+    return this.http.get<Comment[]>(endPoint);
   }
 }

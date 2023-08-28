@@ -12,23 +12,4 @@
       text-decoration: underline;
     }
   }
-
-  .login-page {
-    width: 350px;
-    margin: 30px auto 0 auto;
-
-    .mat-mdc-card-title {
-      text-align: center;
-    }
-
-    .login-form {
-      @include flex-structure(column, none, none);
-
-      .error-message {
-        margin-top: -20px;
-        margin-bottom: 20px;
-        color: $error;
-      }
-    }
-  }
 }

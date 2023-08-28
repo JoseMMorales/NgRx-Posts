@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private getRoute(): void {
     this.router.events
       .pipe(filter((event: any) => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
+      .subscribe((event: NavigationEnd) => {
         event.urlAfterRedirects === '/posts'
           ? this.isPostsPage$.next(true)
           : this.isPostsPage$.next(false);

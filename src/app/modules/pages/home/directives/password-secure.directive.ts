@@ -5,7 +5,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { PasswordValidator } from '../validators/password.validator';
+import { PasswordValidator } from '../../../core/validators/password.validator';
 
 @Directive({
   selector: '[passwordSecure]',

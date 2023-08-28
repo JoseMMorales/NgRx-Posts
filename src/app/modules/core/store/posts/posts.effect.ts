@@ -62,7 +62,10 @@ export class PostsEffects {
     );
   });
 
-  createPosts$: any = createEffect(() => {
+  createPosts$: Observable<
+    ({ posts: Post[] } & TypedAction<string>) | TypedAction<string>
+  > &
+    CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
       ofType(createPosts),
       withLatestFrom(this.store$),
