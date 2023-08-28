@@ -30,7 +30,7 @@ import {
   updatePosts,
 } from './posts.actions';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.state';
+import { AppState } from '../app.state';
 
 import { PostHttpService } from '../../services/api/posts/post-http.service';
 

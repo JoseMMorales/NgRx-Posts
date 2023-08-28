@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 const Material = [
   MatToolbarModule,
@@ -18,6 +19,7 @@ const Material = [
   MatButtonModule,
   CdkAccordionModule,
   MatIconModule,
+  MatSelectModule,
 ];
 
 @NgModule({

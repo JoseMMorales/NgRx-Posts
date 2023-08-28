@@ -65,3 +65,21 @@
   @include grid-center();
   height: 50vh;
 }
+
+.search-sort-posts-container {
+  @include flex-structure(none, center, center);
+
+  .sort-select {
+    width: 120px;
+    margin-top: 20px;
+    margin-left: 5px;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .post-card-container {
+    mat-card-actions {
+      @include flex-structure(column, none, space-between);
+    }
+  }
+}

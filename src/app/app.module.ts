@@ -8,7 +8,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { appReducer } from './modules/core/app.state';
+import { appReducer } from './modules/core/store/app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { PostsEffects } from './modules/core/store/posts/posts.effect';
 

@@ -4,7 +4,15 @@
   @include grid-center();
 
   mat-form-field {
-    width: 400px;
+    max-width: 400px;
     margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .search-container {
+    mat-form-field {
+      width: 100%;
+    }
   }
 }

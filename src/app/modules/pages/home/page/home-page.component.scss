@@ -13,3 +13,11 @@
     }
   }
 }
+
+@media screen and (max-width: 450px) {
+  .messages-login {
+    p {
+      text-align: center;
+    }
+  }
+}

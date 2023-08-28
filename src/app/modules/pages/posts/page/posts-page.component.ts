@@ -73,6 +73,20 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     this.postToRender = postsFiltered;
   }
 
+  sortPosts(value: string): void {
+    let arraySorted: Post[] = [];
+
+    value === 'ASCENDING'
+      ? (arraySorted = [...this.postToRender].sort((a, b) =>
+          a.title > b.title ? 1 : -1
+        ))
+      : (arraySorted = [...this.postToRender].sort((a, b) =>
+          a.title < b.title ? 1 : -1
+        ));
+
+    this.postToRender = arraySorted;
+  }
+
   private getAndSetPosts(): void {
     this.store
       .select(getPosts)

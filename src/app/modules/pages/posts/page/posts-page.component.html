@@ -1,7 +1,16 @@
-<app-search-posts
-  [postsToFilter]="postList"
-  (postsFiltered)="postsFiltered($event)"
-></app-search-posts>
+<div class="search-sort-posts-container">
+  <app-search-posts
+    [postsToFilter]="postList"
+    (postsFiltered)="postsFiltered($event)"
+  ></app-search-posts>
+  <mat-form-field class="sort-select">
+    <mat-label>Sort</mat-label>
+    <mat-select (selectionChange)="sortPosts($event.value)">
+      <mat-option value="ASCENDING">Ascending</mat-option>
+      <mat-option value="DESCENDING">Descending</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 
 <ng-template [ngIf]="postToRender.length">
   <cdk-accordion class="accordion">
