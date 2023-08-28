@@ -166,7 +166,7 @@ export class PostsEffects {
           loadCommentsFailed
         ),
         tap(({ payload }) => {
-          this.snackBar.open(payload.message, 'Error!!');
+          this.snackBar.open(payload.message, 'Close');
         })
       ),
     { dispatch: false }
