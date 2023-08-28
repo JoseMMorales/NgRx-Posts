@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const Material = [
   MatToolbarModule,
@@ -20,6 +21,7 @@ const Material = [
   CdkAccordionModule,
   MatIconModule,
   MatSelectModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({

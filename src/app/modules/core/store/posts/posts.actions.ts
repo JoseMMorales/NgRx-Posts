@@ -25,7 +25,10 @@ export const loadPostsSuccess = createAction(
   PostActions.LOAD_POSTS_SUCCESS,
   props<{ posts: Post[] }>()
 );
-export const loadPostsFailed = createAction(PostActions.LOAD_POSTS_FAILED);
+export const loadPostsFailed = createAction(
+  PostActions.LOAD_POSTS_FAILED,
+  props<{ payload: { message: string } }>()
+);
 
 export const createPosts = createAction(
   PostActions.CREATE_POSTS,
@@ -35,7 +38,10 @@ export const createPostsSuccess = createAction(
   PostActions.CREATE_POSTS_SUCCESS,
   props<{ posts: Post[] }>()
 );
-export const createPostsFailed = createAction(PostActions.CREATE_POSTS_FAILED);
+export const createPostsFailed = createAction(
+  PostActions.CREATE_POSTS_FAILED,
+  props<{ payload: { message: string } }>()
+);
 
 export const updatePosts = createAction(
   PostActions.UPDATE_POSTS,
@@ -45,7 +51,10 @@ export const updatePostsSuccess = createAction(
   PostActions.UPDATE_POSTS_SUCCESS,
   props<{ posts: Post[] }>()
 );
-export const updatePostsFailed = createAction(PostActions.UPDATE_POSTS_FAILED);
+export const updatePostsFailed = createAction(
+  PostActions.UPDATE_POSTS_FAILED,
+  props<{ payload: { message: string } }>()
+);
 
 export const deletePosts = createAction(
   PostActions.DELETE_POSTS,
@@ -55,7 +64,10 @@ export const deletePostsSuccess = createAction(
   PostActions.DELETE_POSTS_SUCCESS,
   props<{ posts: Post[] }>()
 );
-export const deletePostsFailed = createAction(PostActions.DELETE_POSTS_FAILED);
+export const deletePostsFailed = createAction(
+  PostActions.DELETE_POSTS_FAILED,
+  props<{ payload: { message: string } }>()
+);
 
 export const loadComments = createAction(PostActions.LOAD_COMMENTS);
 export const loadCommentsSuccess = createAction(
@@ -63,5 +75,6 @@ export const loadCommentsSuccess = createAction(
   props<{ comments: Comment[] }>()
 );
 export const loadCommentsFailed = createAction(
-  PostActions.LOAD_COMMENTS_FAILED
+  PostActions.LOAD_COMMENTS_FAILED,
+  props<{ payload: { message: string } }>()
 );

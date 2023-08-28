@@ -5,6 +5,7 @@ import {
   map,
   mergeMap,
   of,
+  tap,
   withLatestFrom,
 } from 'rxjs';
 
@@ -28,11 +29,13 @@ import {
   loadPostsFailed,
   loadPostsSuccess,
   updatePosts,
+  updatePostsFailed,
 } from './posts.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 
 import { PostHttpService } from '../../services/api/posts/post-http.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Post } from '../../../shared/models/post.model';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -42,7 +45,8 @@ export class PostsEffects {
   constructor(
     private store$: Store<AppState>,
     private actions$: Actions,
-    private postService: PostHttpService
+    private postService: PostHttpService,
+    private snackBar: MatSnackBar
   ) {}
 
   loadPosts$: Observable<
@@ -56,7 +60,7 @@ export class PostsEffects {
           map((postsResponse) => {
             return loadPostsSuccess({ posts: postsResponse });
           }),
-          catchError(() => of(loadPostsFailed()))
+          catchError((error) => of(loadPostsFailed({ payload: error })))
         );
       })
     );
@@ -77,7 +81,7 @@ export class PostsEffects {
 
             return createPostsSuccess({ posts: [...postsArrayUpdated] });
           }),
-          catchError(() => of(createPostsFailed()))
+          catchError((error) => of(createPostsFailed({ payload: error })))
         );
       })
     );
@@ -103,7 +107,7 @@ export class PostsEffects {
 
             return createPostsSuccess({ posts: [...postsArrayUpdated] });
           }),
-          catchError(() => of(createPostsFailed()))
+          catchError((error) => of(createPostsFailed({ payload: error })))
         );
       })
     );
@@ -127,7 +131,7 @@ export class PostsEffects {
 
             return deletePostsSuccess({ posts: [...postsArrayUpdated] });
           }),
-          catchError(() => of(deletePostsFailed()))
+          catchError((error) => of(deletePostsFailed({ payload: error })))
         );
       })
     );
@@ -141,9 +145,30 @@ export class PostsEffects {
           map((commentsResponse) => {
             return loadCommentsSuccess({ comments: [...commentsResponse] });
           }),
-          catchError(() => of(loadCommentsFailed()))
+          catchError((error) => of(loadCommentsFailed({ payload: error })))
         );
       })
     );
   });
+
+  postsErrors$: Observable<
+    | ({ payload: { message: string } } & TypedAction<string>)
+    | TypedAction<string>
+  > &
+    CreateEffectMetadata = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          loadPostsFailed,
+          createPostsFailed,
+          updatePostsFailed,
+          deletePostsFailed,
+          loadCommentsFailed
+        ),
+        tap(({ payload }) => {
+          this.snackBar.open(payload.message, 'Error!!');
+        })
+      ),
+    { dispatch: false }
+  );
 }
