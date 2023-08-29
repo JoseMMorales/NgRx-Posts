@@ -1,0 +1,18 @@
+@import "../../../../stylesheets/styles";
+
+.button-top {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: $error;
+  color: $white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary;
+  }
+}

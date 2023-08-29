@@ -2,7 +2,7 @@
 
 .accordion {
   display: block;
-  margin: 0 10% 0 10%;
+  margin: 170px 10% 0 10%;
 
   .accordion-item {
     display: block;
@@ -16,6 +16,10 @@
 
         mat-card-actions {
           @include flex-structure(none, none, space-between);
+
+          &.no-comments {
+            @include flex-structure(none, none, end);
+          }
         }
 
         .mat-mdc-card-avatar.header-image {
@@ -67,7 +71,14 @@
 }
 
 .search-sort-posts-container {
+  position: fixed;
+  top: 0;
   @include flex-structure(none, center, center);
+  width: 100%;
+  margin-top: 64px;
+  z-index: 2;
+  background-color: $white;
+  border-bottom: 1px solid $gray;
 
   .sort-select {
     width: 120px;
@@ -78,8 +89,16 @@
 
 @media screen and (max-width: 410px) {
   .post-card-container {
+    .card-content {
+      text-align: justify;
+    }
+
     mat-card-actions {
       @include flex-structure(column, none, space-between);
     }
+  }
+
+  .sort-select {
+    margin-right: 8px;
   }
 }

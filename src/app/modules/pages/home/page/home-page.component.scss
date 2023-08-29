@@ -8,8 +8,9 @@
     @include grid-center();
 
     p {
-      color: $advice;
+      color: $primary;
       text-decoration: underline;
+      margin-top: 40px;
     }
   }
 }

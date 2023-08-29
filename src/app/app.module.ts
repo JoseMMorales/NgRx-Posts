@@ -15,6 +15,7 @@ import { PostsEffects } from './modules/core/store/posts/posts.effect';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './modules/shared/components/navbar/navbar.component';
 import { LoadingComponent } from './modules/shared/components/loading/loading.component';
+import { ButtonTopComponent } from './modules/shared/components/button-top/button-top.component';
 
 const ANGULAR_MODULES = [
   CoreModule,
@@ -39,6 +40,7 @@ const ANGULAR_MODULES = [
     EffectsModule.forRoot([PostsEffects]),
     NavbarComponent,
     LoadingComponent,
+    ButtonTopComponent,
   ],
 })
 export class AppModule {}
