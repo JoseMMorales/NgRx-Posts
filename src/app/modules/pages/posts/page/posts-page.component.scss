@@ -68,6 +68,7 @@
 .not-found-message {
   @include grid-center();
   height: 50vh;
+  margin-top: 180px;
 }
 
 .search-sort-posts-container {
