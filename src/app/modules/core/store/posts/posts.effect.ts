@@ -98,9 +98,14 @@ export class PostsEffects {
         return this.postService.updatePost(action.post).pipe(
           map((postResponseFromAPI) => {
             const postsInStore = storeState.posts.posts;
+
             const postsArrayUpdated = postsInStore.map((postInStore) => {
               if (postInStore.id === postResponseFromAPI.id) {
-                return postResponseFromAPI;
+                return {
+                  ...postInStore,
+                  body: postResponseFromAPI.body,
+                  title: postResponseFromAPI.title,
+                };
               }
               return postInStore;
             });
