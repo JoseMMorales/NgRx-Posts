@@ -1,22 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { PostHttpService } from './post-http.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('PostHttpService', () => {
-  let component: PostHttpService;
-  let fixture: ComponentFixture<PostHttpService>;
+  let service: PostHttpService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PostHttpService],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(PostHttpService);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [PostHttpService, HttpClient, HttpHandler],
+    });
+    service = TestBed.inject(PostHttpService);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });

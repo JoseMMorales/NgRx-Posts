@@ -1,5 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { Store, StoreModule } from '@ngrx/store';
+import { appReducer } from 'src/app/modules/core/store/app.state';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { StoreMock } from 'src/app/modules/core/store/testing/store-mock';
+
+import { DialogService } from 'src/app/modules/shared/services/dialog/dialog.service';
 import { PostsPageComponent } from './posts-page.component';
 
 describe('PostsPageComponent', () => {
@@ -9,6 +16,17 @@ describe('PostsPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PostsPageComponent],
+      providers: [
+        {
+          provider: Store,
+          useClass: StoreMock,
+        },
+        DialogService,
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialog, useValue: {} },
+      ],
+      imports: [StoreModule.forRoot(appReducer)],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PostsPageComponent);
@@ -20,3 +38,6 @@ describe('PostsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+function provideMockStore(arg0: { initialState: {} }): any {
+  throw new Error('Function not implemented.');
+}

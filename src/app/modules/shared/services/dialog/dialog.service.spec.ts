@@ -1,22 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { DialogService } from './dialog.service';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 describe('DialogService', () => {
-  let component: DialogService;
-  let fixture: ComponentFixture<DialogService>;
+  let service: DialogService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DialogService],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(DialogService);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        DialogService,
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialog, useValue: {} },
+      ],
+    });
+    service = TestBed.inject(DialogService);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });

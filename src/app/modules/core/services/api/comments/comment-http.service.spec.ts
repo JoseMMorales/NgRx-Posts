@@ -1,22 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { CommentHttpService } from './comment-http.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('CommentHttpService', () => {
-  let component: CommentHttpService;
-  let fixture: ComponentFixture<CommentHttpService>;
+  let service: CommentHttpService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [CommentHttpService],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(CommentHttpService);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [CommentHttpService, HttpClient, HttpHandler],
+    });
+    service = TestBed.inject(CommentHttpService);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });

@@ -1,22 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { PostService } from './post.service';
 
 describe('PostService', () => {
-  let component: PostService;
-  let fixture: ComponentFixture<PostService>;
+  let service: PostService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PostService],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(PostService);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [PostService],
+    });
+    service = TestBed.inject(PostService);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });
