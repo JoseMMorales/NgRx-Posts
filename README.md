@@ -5,39 +5,39 @@
 
  </div>
 
-This App has been developed following [Flux pattern](https://ngrx.io/guide/store) where states are stored in an object tree within a single store. That means, all states will be handled globally in an architecture based on unidirectional data flow, with [NgRx](https://ngrx.io/) will dispatch actions to express state changes ideally for large/complex Apps(NgRx-Psts in the future 😊) where users have multiple interactions and multiple data sources.
+This App has been developed following the [Flux pattern](https://ngrx.io/guide/store) where states are stored in an object tree within a single store. That means, all states will be handled globally in an architecture based on unidirectional data flow, with [NgRx](https://ngrx.io/) will dispatch actions to express state changes ideally for large/complex Apps(NgRx-Pots in the future 😊) where users have multiple interactions and multiple data sources.
 
-### **Breakdown of features implemented on this project...**
+### **Breakdown of features implemented...**
 
 ✨REST API used [{JSON}Placeholder](https://jsonplaceholder.typicode.com/).
 
 1. Rendering posts provided by the API.
-2. Implement CRUD for the resources Posts.
-3. Include Comments for each post.
-4. Search bar to filter posts rendered by title.
+2. Implementing CRUD for Posts' resources.
+3. Including Comments for each post.
+4. Search bar to filter posts by title.
 5. Sorting Ascending/Descending by post (title and body).
 
 ### **Components in the App...**
 
-As this App has been built with Angular 15 one of the most important new features is [Standalone components](https://angular.io/guide/standalone-components), this great goodie gives to the developer to create individual components, pipes, directives at any level independently of each module, just being imported to be used. Actually, in out lovely NgRx Posts App there are a few of them when are going to be re-used or if any pipe, directive in needed for an easier re-usable meaning.
+This App has been built with Angular 15 which one of the most important features is [Standalone components](https://angular.io/guide/standalone-components) that gives the developer the ability to create components, pipes or directives at any level independently of each module, with just being imported, we can use them either in another standalone or module-based components.
 
-❗❗ Note that standalone ones are: NavBarComponent, LoadingComponent, FormPostComponent, ButtonToTopComponent, PassworSecureDirective, OneValidatorPipe.
+❗❗ Standalone ones: NavBarComponent, LoadingComponent, FormPostComponent, ButtonToTopComponent, PassworSecureDirective, OneValidatorPipe.
 
 ### **Angular router tasks...**
 
-⚡**Guards:** In this case posts route has been implemented with a guard to make sure the email in this case has been stored locally, trusting on Auth Service that is corroborating this string is saved accordingly to let the user get through and be able to access to posts page.
+⚡**Guards:** Controlling the accessibility to the user in a route, CanActivate has been taken to do that job on posts route, the guard will rely on AuthService to corroborate that the email is stored accordingly to get through.
 
-- Auth guard and Auth service have been placed on highest level (Core folder) this security check.
+- Auth guard and Auth service have been placed on highest level (Core folder) for this security check.
 
 ⚡**Lazy Loading:** This is a mandatory design pattern for angular Apps that have a considered size (This is not the case but it is a nice to have 😊)decreasing load time and keeping initial bundle sizes smaller. It will be based on modules to be rendered using path as main guide to reach in an asynchronous way each module.
 
 ### **Intercepting Http requests...**
 
-In the highest level of the App(Core folder) has been included an interceptor which is very handy when need to transform each HttpRequest, just injecting the token as provider we will be allow to modify each request on a global basis. As all requests raised on this project were as mandatory to add Content-type this technique was a win to win doing it dynamically.
+Included on Core folder our interceptor will be very handy when any HttpRequest will be made and will require to be transformed, just adding HTTP_INTERCEPTORS as a provider we will be allowed to modify each request on a global basis. In our project it's a mandatory to add Content-type on each header so it's a good technique to do that.
 
 ### **Handling errors...**
 
-In NgRx App errors are handled by an individual effect as per only one existing state across the App, it will throw out a snack bar showing up error received through the fail action received on each effect for that state. It was decided to move with this approach due to individual state(posts) so it was a cleaned and smart way to meet the purpose which was let the user know that something was failing on the background when interacting with the API.
+Errors in NgRx Posts App are handled by an individual effect as in our store there is just one state across the App(posts), a snack bar will show the error received through the fail actions triggered from each effect. Meeting the purpose in a clean way to meet main purpose which is let the user know that something was failing on the background when interacting with the API.
 
 Please see the effect below:
 
@@ -48,8 +48,6 @@ Please see the effect below:
 </br>
 
 ### **Structure of the App...**
-
-General overview of the App to understand levels
 
 <div align="center">
 
