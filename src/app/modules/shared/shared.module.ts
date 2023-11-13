@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DialogService } from './services/dialog/dialog.service';
 import { PostService } from './services/post/post.service';
+import { DestroyService } from './services/destroy/destroy.service';
 
 const ANGULAR_MODULES = [
   CommonModule,
@@ -18,6 +19,6 @@ const ANGULAR_MODULES = [
   declarations: [],
   imports: [ANGULAR_MODULES],
   exports: [ANGULAR_MODULES],
-  providers: [DialogService, PostService],
+  providers: [DialogService, PostService, DestroyService],
 })
 export class SharedModule {}

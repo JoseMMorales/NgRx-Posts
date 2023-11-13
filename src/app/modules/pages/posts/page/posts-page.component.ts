@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, skip, takeUntil } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, skip, takeUntil } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import {
@@ -18,19 +18,23 @@ import {
 import { Post } from 'src/app/modules/shared/models/post.model';
 import { DialogService } from 'src/app/modules/shared/services/dialog/dialog.service';
 import { getIsSpinnerVisible } from 'src/app/modules/core/store/spinner/spinner.selector';
+import { DestroyService } from 'src/app/modules/shared/services/destroy/destroy.service';
 
 @Component({
   selector: 'app-posts-page',
   templateUrl: './posts-page.component.html',
   styleUrls: ['./posts-page.component.scss'],
 })
-export class PostsPageComponent implements OnInit, OnDestroy {
+export class PostsPageComponent implements OnInit {
   postList: Post[] = [];
   postToRender: Post[] = [];
-  destroyed$: Subject<void> = new Subject<void>();
   isGLobalSpinnerVisible$: Observable<boolean>;
 
-  constructor(private store: Store, private dialogService: DialogService) {
+  constructor(
+    private store: Store,
+    private dialogService: DialogService,
+    private destroyed$: DestroyService
+  ) {
     this.store.dispatch(loadPosts());
     this.store.dispatch(loadComments());
     this.isGLobalSpinnerVisible$ = this.store.select(getIsSpinnerVisible);
@@ -38,11 +42,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAndSetPosts();
-  }
-
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.unsubscribe();
   }
 
   deletePost(postId: number | undefined): void {
@@ -54,6 +53,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
     this.dialogService
       .dialogDispatch(titleEditForm, buttonTextEditForm)
+      .pipe(takeUntil(this.destroyed$))
       .subscribe((post: Post) => {
         let postUpdated = emptyPost;
 

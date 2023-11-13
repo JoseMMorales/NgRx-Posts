@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import {
   BehaviorSubject,
@@ -8,6 +8,7 @@ import {
   fromEvent,
   takeUntil,
 } from 'rxjs';
+import { DestroyService } from '../../services/destroy/destroy.service';
 
 @Component({
   selector: 'app-button-top',
@@ -22,17 +23,11 @@ import {
   standalone: true,
   imports: [CommonModule, MatIconModule],
 })
-export class ButtonTopComponent implements OnDestroy {
+export class ButtonTopComponent {
   showBtn$ = new BehaviorSubject<boolean>(false);
-  destroyed$: Subject<void> = new Subject<void>();
 
-  constructor() {
+  constructor(private destroyed$: DestroyService) {
     this.hideShowTopButton();
-  }
-
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.unsubscribe();
   }
 
   dealWithScroll(scrollY: number): void {
