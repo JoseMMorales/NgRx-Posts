@@ -1,68 +1,60 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { PostState, initialState } from './posts.state';
 import {
-  createPosts,
-  createPostsFailed,
-  createPostsSuccess,
-  deletePosts,
-  deletePostsFailed,
-  deletePostsSuccess,
-  loadComments,
-  loadCommentsFailed,
-  loadCommentsSuccess,
-  loadPosts,
-  loadPostsFailed,
-  loadPostsSuccess,
-  updatePosts,
-  updatePostsFailed,
-  updatePostsSuccess,
+  PostsCommentActions,
+  PostsCreateActions,
+  PostsDeleteActions,
+  PostsLoadActions,
+  PostsUpdateActions,
 } from './posts.actions';
 import { Comment } from 'src/app/modules/shared/models/comment.model';
 
 const _postsReducer: ActionReducer<PostState, Action> = createReducer(
   initialState,
-  on(loadPosts, (state) => {
+  on(PostsLoadActions.load, (state) => {
     return { ...state, isLoading: true };
   }),
-  on(loadPostsSuccess, (state, action) => {
+  on(PostsLoadActions.loadSuccess, (state, action) => {
     return { ...state, posts: action.posts, isLoading: false };
   }),
-  on(loadPostsFailed, (state) => {
-    return { ...state, isLoading: false };
-  }),
-  on(createPosts, (state) => {
-    return { ...state, isLoading: true };
-  }),
-  on(createPostsSuccess, (state, action) => {
-    return { ...state, posts: action.posts, isLoading: false };
-  }),
-  on(createPostsFailed, (state) => {
+  on(PostsLoadActions.loadFailed, (state) => {
     return { ...state, isLoading: false };
   }),
 
-  on(updatePosts, (state) => {
+  on(PostsCreateActions.create, (state) => {
     return { ...state, isLoading: true };
   }),
-  on(updatePostsSuccess, (state, action) => {
+  on(PostsCreateActions.createSuccess, (state, action) => {
     return { ...state, posts: action.posts, isLoading: false };
   }),
-  on(updatePostsFailed, (state) => {
+  on(PostsCreateActions.createFailed, (state) => {
     return { ...state, isLoading: false };
   }),
 
-  on(deletePosts, (state, action) => {
+  on(PostsUpdateActions.update, (state) => {
+    return { ...state, isLoading: true };
+  }),
+  on(PostsUpdateActions.updateSuccess, (state, action) => {
+    return { ...state, posts: action.posts, isLoading: false };
+  }),
+  on(PostsUpdateActions.updateFailed, (state) => {
+    return { ...state, isLoading: false };
+  }),
+
+  on(PostsDeleteActions.delete, (state, action) => {
     return { ...state, isLoading: true, id: action.id };
   }),
-  on(deletePostsSuccess, (state, action) => {
+  on(PostsDeleteActions.deleteSuccess, (state, action) => {
     return { ...state, posts: action.posts, isLoading: false };
   }),
-  on(deletePostsFailed, (state) => {
+  on(PostsDeleteActions.deleteFailed, (state) => {
     return { ...state, isLoading: false };
   }),
-  on(loadComments, (state) => {
+
+  on(PostsCommentActions.commentLoad, (state) => {
     return { ...state, isLoading: true };
   }),
-  on(loadCommentsSuccess, (state, action) => {
+  on(PostsCommentActions.commentSuccess, (state, action) => {
     const postsInStore = state.posts;
 
     const postsArrayUpdated = postsInStore.map((postInStore) => {
@@ -76,7 +68,7 @@ const _postsReducer: ActionReducer<PostState, Action> = createReducer(
 
     return { ...state, posts: [...postsArrayUpdated], isLoading: false };
   }),
-  on(loadCommentsFailed, (state) => {
+  on(PostsCommentActions.commentFailed, (state) => {
     return { ...state, isLoading: false };
   })
 );

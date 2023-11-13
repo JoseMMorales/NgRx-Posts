@@ -5,7 +5,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
 import { Store } from '@ngrx/store';
-import { createPosts } from 'src/app/modules/core/store/posts/posts.actions';
 import { getPosts } from 'src/app/modules/core/store/posts/posts.selector';
 
 import { Post } from '../../models/post.model';
@@ -16,6 +15,7 @@ import { buttonTextCreateForm, titleCreateForm } from '../../const/post';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DestroyService } from '../../services/destroy/destroy.service';
+import { PostsCreateActions } from 'src/app/modules/core/store/posts/posts.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -52,7 +52,9 @@ export class NavbarComponent implements OnInit {
             post
           );
 
-          this.store.dispatch(createPosts({ post: { ...newPostComplete } }));
+          this.store.dispatch(
+            PostsCreateActions.create({ post: { ...newPostComplete } })
+          );
         }
       });
   }

@@ -3,10 +3,10 @@ import { Observable, skip, takeUntil } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import {
-  deletePosts,
-  loadComments,
-  loadPosts,
-  updatePosts,
+  PostsCommentActions,
+  PostsDeleteActions,
+  PostsLoadActions,
+  PostsUpdateActions,
 } from 'src/app/modules/core/store/posts/posts.actions';
 import { getPosts } from 'src/app/modules/core/store/posts/posts.selector';
 
@@ -35,8 +35,8 @@ export class PostsPageComponent implements OnInit {
     private dialogService: DialogService,
     private destroyed$: DestroyService
   ) {
-    this.store.dispatch(loadPosts());
-    this.store.dispatch(loadComments());
+    this.store.dispatch(PostsLoadActions.load());
+    this.store.dispatch(PostsCommentActions.commentLoad());
     this.isGLobalSpinnerVisible$ = this.store.select(getIsSpinnerVisible);
   }
 
@@ -45,7 +45,7 @@ export class PostsPageComponent implements OnInit {
   }
 
   deletePost(postId: number | undefined): void {
-    !!postId && this.store.dispatch(deletePosts({ id: postId }));
+    !!postId && this.store.dispatch(PostsDeleteActions.delete({ id: postId }));
   }
 
   updatePost(post: Post): void {
@@ -64,7 +64,9 @@ export class PostsPageComponent implements OnInit {
             id: postToUpdate.id,
           };
 
-          this.store.dispatch(updatePosts({ post: { ...postUpdated } }));
+          this.store.dispatch(
+            PostsUpdateActions.update({ post: { ...postUpdated } })
+          );
         }
       });
   }

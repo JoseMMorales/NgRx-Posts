@@ -1,80 +1,56 @@
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Post } from '../../../shared/models/post.model';
 import { Comment } from 'src/app/modules/shared/models/comment.model';
 
 export enum PostActions {
   LOAD_POSTS = 'LOAD_POSTS',
-  LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS',
-  LOAD_POSTS_FAILED = 'LOAD_POSTS_FAILED',
   CREATE_POSTS = 'CREATE_POSTS',
-  CREATE_POSTS_SUCCESS = 'CREATE_POSTS_SUCCESS',
-  CREATE_POSTS_FAILED = 'CREATE_POSTS_FAILED',
   UPDATE_POSTS = 'UPDATE_POSTS',
-  UPDATE_POSTS_SUCCESS = 'UPDATE_POSTS_SUCCESS',
-  UPDATE_POSTS_FAILED = 'UPDATE_POSTS_FAILED',
   DELETE_POSTS = 'DELETE_POSTS',
-  DELETE_POSTS_SUCCESS = 'DELETE_POSTS_SUCCESS',
-  DELETE_POSTS_FAILED = 'DELETE_POSTS_FAILED',
   LOAD_COMMENTS = 'LOAD_COMMENTS',
-  LOAD_COMMENTS_SUCCESS = 'LOAD_COMMENTS_SUCCESS',
-  LOAD_COMMENTS_FAILED = 'LOAD_COMMENTS_FAILED',
 }
 
-export const loadPosts = createAction(PostActions.LOAD_POSTS);
-export const loadPostsSuccess = createAction(
-  PostActions.LOAD_POSTS_SUCCESS,
-  props<{ posts: Post[] }>()
-);
-export const loadPostsFailed = createAction(
-  PostActions.LOAD_POSTS_FAILED,
-  props<{ payload: { message: string } }>()
-);
+export const PostsLoadActions = createActionGroup({
+  source: PostActions.LOAD_POSTS,
+  events: {
+    load: emptyProps(),
+    'load success': props<{ posts: Post[] }>(),
+    'load failed': props<{ payload: { message: string } }>(),
+  },
+});
 
-export const createPosts = createAction(
-  PostActions.CREATE_POSTS,
-  props<{ post: Post }>()
-);
-export const createPostsSuccess = createAction(
-  PostActions.CREATE_POSTS_SUCCESS,
-  props<{ posts: Post[] }>()
-);
-export const createPostsFailed = createAction(
-  PostActions.CREATE_POSTS_FAILED,
-  props<{ payload: { message: string } }>()
-);
+export const PostsCreateActions = createActionGroup({
+  source: PostActions.CREATE_POSTS,
+  events: {
+    create: props<{ post: Post }>(),
+    'create success': props<{ posts: Post[] }>(),
+    'create failed': props<{ payload: { message: string } }>(),
+  },
+});
 
-export const updatePosts = createAction(
-  PostActions.UPDATE_POSTS,
-  props<{ post: Post }>()
-);
-export const updatePostsSuccess = createAction(
-  PostActions.UPDATE_POSTS_SUCCESS,
-  props<{ posts: Post[] }>()
-);
-export const updatePostsFailed = createAction(
-  PostActions.UPDATE_POSTS_FAILED,
-  props<{ payload: { message: string } }>()
-);
+export const PostsUpdateActions = createActionGroup({
+  source: PostActions.UPDATE_POSTS,
+  events: {
+    update: props<{ post: Post }>(),
+    'update success': props<{ posts: Post[] }>(),
+    'update failed': props<{ payload: { message: string } }>(),
+  },
+});
 
-export const deletePosts = createAction(
-  PostActions.DELETE_POSTS,
-  props<{ id: number }>()
-);
-export const deletePostsSuccess = createAction(
-  PostActions.DELETE_POSTS_SUCCESS,
-  props<{ posts: Post[] }>()
-);
-export const deletePostsFailed = createAction(
-  PostActions.DELETE_POSTS_FAILED,
-  props<{ payload: { message: string } }>()
-);
+export const PostsDeleteActions = createActionGroup({
+  source: PostActions.DELETE_POSTS,
+  events: {
+    delete: props<{ id: number }>(),
+    'delete success': props<{ posts: Post[] }>(),
+    'delete failed': props<{ payload: { message: string } }>(),
+  },
+});
 
-export const loadComments = createAction(PostActions.LOAD_COMMENTS);
-export const loadCommentsSuccess = createAction(
-  PostActions.LOAD_COMMENTS_SUCCESS,
-  props<{ comments: Comment[] }>()
-);
-export const loadCommentsFailed = createAction(
-  PostActions.LOAD_COMMENTS_FAILED,
-  props<{ payload: { message: string } }>()
-);
+export const PostsCommentActions = createActionGroup({
+  source: PostActions.LOAD_COMMENTS,
+  events: {
+    'comment load': emptyProps(),
+    'comment success': props<{ comments: Comment[] }>(),
+    'comment failed': props<{ payload: { message: string } }>(),
+  },
+});

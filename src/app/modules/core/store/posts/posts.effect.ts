@@ -16,20 +16,11 @@ import {
   ofType,
 } from '@ngrx/effects';
 import {
-  createPosts,
-  createPostsFailed,
-  createPostsSuccess,
-  deletePosts,
-  deletePostsFailed,
-  deletePostsSuccess,
-  loadComments,
-  loadCommentsFailed,
-  loadCommentsSuccess,
-  loadPosts,
-  loadPostsFailed,
-  loadPostsSuccess,
-  updatePosts,
-  updatePostsFailed,
+  PostsCommentActions,
+  PostsCreateActions,
+  PostsDeleteActions,
+  PostsLoadActions,
+  PostsUpdateActions,
 } from './posts.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
@@ -54,13 +45,15 @@ export class PostsEffects {
   > &
     CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
-      ofType(loadPosts),
+      ofType(PostsLoadActions.load),
       mergeMap(() => {
         return this.postService.getPosts().pipe(
           map((postsResponse) => {
-            return loadPostsSuccess({ posts: postsResponse });
+            return PostsLoadActions.loadSuccess({ posts: postsResponse });
           }),
-          catchError((error) => of(loadPostsFailed({ payload: error })))
+          catchError((error) =>
+            of(PostsLoadActions.loadFailed({ payload: error }))
+          )
         );
       })
     );
@@ -71,7 +64,7 @@ export class PostsEffects {
   > &
     CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
-      ofType(createPosts),
+      ofType(PostsCreateActions.create),
       withLatestFrom(this.store$),
       mergeMap(([action, storeState]) => {
         return this.postService.createPost(action.post).pipe(
@@ -79,9 +72,13 @@ export class PostsEffects {
             const postsInStore = storeState.posts.posts;
             const postsArrayUpdated = [postResponse, ...postsInStore];
 
-            return createPostsSuccess({ posts: [...postsArrayUpdated] });
+            return PostsCreateActions.createSuccess({
+              posts: [...postsArrayUpdated],
+            });
           }),
-          catchError((error) => of(createPostsFailed({ payload: error })))
+          catchError((error) =>
+            of(PostsCreateActions.createFailed({ payload: error }))
+          )
         );
       })
     );
@@ -92,7 +89,7 @@ export class PostsEffects {
   > &
     CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
-      ofType(updatePosts),
+      ofType(PostsUpdateActions.update),
       withLatestFrom(this.store$),
       mergeMap(([action, storeState]) => {
         return this.postService.updatePost(action.post).pipe(
@@ -110,9 +107,13 @@ export class PostsEffects {
               return postInStore;
             });
 
-            return createPostsSuccess({ posts: [...postsArrayUpdated] });
+            return PostsUpdateActions.updateSuccess({
+              posts: [...postsArrayUpdated],
+            });
           }),
-          catchError((error) => of(createPostsFailed({ payload: error })))
+          catchError((error) =>
+            of(PostsCreateActions.createFailed({ payload: error }))
+          )
         );
       })
     );
@@ -123,7 +124,7 @@ export class PostsEffects {
   > &
     CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
-      ofType(deletePosts),
+      ofType(PostsDeleteActions.delete),
       withLatestFrom(this.store$),
       mergeMap(([action, storeState]) => {
         return this.postService.deletePost(action.id).pipe(
@@ -134,9 +135,13 @@ export class PostsEffects {
               (post) => post.id !== postRemoved
             );
 
-            return deletePostsSuccess({ posts: [...postsArrayUpdated] });
+            return PostsDeleteActions.deleteSuccess({
+              posts: [...postsArrayUpdated],
+            });
           }),
-          catchError((error) => of(deletePostsFailed({ payload: error })))
+          catchError((error) =>
+            of(PostsDeleteActions.deleteFailed({ payload: error }))
+          )
         );
       })
     );
@@ -144,13 +149,17 @@ export class PostsEffects {
 
   loadComments$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(loadComments),
+      ofType(PostsCommentActions.commentLoad),
       mergeMap(() => {
         return this.postService.getPostComments().pipe(
           map((commentsResponse) => {
-            return loadCommentsSuccess({ comments: [...commentsResponse] });
+            return PostsCommentActions.commentSuccess({
+              comments: [...commentsResponse],
+            });
           }),
-          catchError((error) => of(loadCommentsFailed({ payload: error })))
+          catchError((error) =>
+            of(PostsCommentActions.commentFailed({ payload: error }))
+          )
         );
       })
     );
@@ -164,11 +173,11 @@ export class PostsEffects {
     () =>
       this.actions$.pipe(
         ofType(
-          loadPostsFailed,
-          createPostsFailed,
-          updatePostsFailed,
-          deletePostsFailed,
-          loadCommentsFailed
+          PostsLoadActions.loadFailed,
+          PostsCreateActions.createFailed,
+          PostsUpdateActions.updateFailed,
+          PostsDeleteActions.deleteFailed,
+          PostsCommentActions.commentFailed
         ),
         tap(({ payload }) => {
           this.snackBar.open(payload.message, 'Close');
