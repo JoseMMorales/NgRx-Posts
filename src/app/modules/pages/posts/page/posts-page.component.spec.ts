@@ -8,6 +8,7 @@ import { StoreMock } from 'src/app/modules/core/store/testing/store-mock';
 
 import { DialogService } from 'src/app/modules/shared/services/dialog/dialog.service';
 import { PostsPageComponent } from './posts-page.component';
+import { DestroyService } from 'src/app/modules/shared/services/destroy/destroy.service';
 
 describe('PostsPageComponent', () => {
   let component: PostsPageComponent;
@@ -24,6 +25,7 @@ describe('PostsPageComponent', () => {
         DialogService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialog, useValue: {} },
+        DestroyService,
       ],
       imports: [StoreModule.forRoot(appReducer)],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

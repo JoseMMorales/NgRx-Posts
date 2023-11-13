@@ -8,6 +8,7 @@ import { StoreMock } from 'src/app/modules/core/store/testing/store-mock';
 import { PostService } from '../../services/post/post.service';
 import { DialogService } from '../../services/dialog/dialog.service';
 import { NavbarComponent } from './navbar.component';
+import { DestroyService } from '../../services/destroy/destroy.service';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -25,6 +26,7 @@ describe('NavbarComponent', () => {
         DialogService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialog, useValue: {} },
+        DestroyService,
       ],
     }).compileComponents();
 

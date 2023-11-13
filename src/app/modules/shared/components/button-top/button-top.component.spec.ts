@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ButtonTopComponent } from './button-top.component';
+import { DestroyService } from '../../services/destroy/destroy.service';
 
 describe('ButtonTopComponent', () => {
   let component: ButtonTopComponent;
@@ -8,6 +9,7 @@ describe('ButtonTopComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [DestroyService],
       imports: [ButtonTopComponent],
     }).compileComponents();
 
