@@ -40,6 +40,3 @@ describe('PostsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-function provideMockStore(arg0: { initialState: {} }): any {
-  throw new Error('Function not implemented.');
-}
