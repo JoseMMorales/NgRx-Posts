@@ -3,7 +3,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { HeaderInterceptor } from './interceptor/header.interceptor';
 
-import { CommentHttpService } from './services/api/comments/comment-http.service';
 import { PostHttpService } from './services/api/posts/post-http.service';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { PostHttpService } from './services/api/posts/post-http.service';
       useClass: HeaderInterceptor,
       multi: true,
     },
-    CommentHttpService,
     PostHttpService,
   ],
 })

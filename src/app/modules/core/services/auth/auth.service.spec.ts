@@ -15,4 +15,16 @@ describe('AuthenticationService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should return if user is logged in TRUE', () => {
+    spyOn(window.localStorage, 'getItem').and.callFake(() => {
+      return JSON.stringify({ email: 'test@gmail.com' });
+    });
+
+    expect(service.isLoggedIn()).toBe(true);
+  });
+
+  it('should return if user is logged in FALSE', () => {
+    expect(service.isLoggedIn()).toBe(false);
+  });
 });
