@@ -7,7 +7,7 @@ import {
 import { environment } from 'src/environment/environment';
 import { PostHttpService } from './post-http.service';
 import {
-  PostResponseMocked,
+  postResponseMocked,
   postMocked,
 } from '../../../store/testing/mock/post.mock';
 import { commentResponseMocked } from '../../../store/testing/mock/comment.mock';
@@ -31,7 +31,7 @@ describe('PostHttpService', () => {
 
   it('should get posts', () => {
     service.getPosts().subscribe((res) => {
-      expect(res).toEqual(PostResponseMocked);
+      expect(res).toEqual(postResponseMocked);
     });
 
     const req = httpController.expectOne({
@@ -39,7 +39,7 @@ describe('PostHttpService', () => {
       url: `${environment.baseURL}/posts`,
     });
 
-    req.flush(PostResponseMocked);
+    req.flush(postResponseMocked);
   });
 
   it('should create post', () => {

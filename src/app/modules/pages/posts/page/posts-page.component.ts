@@ -8,7 +8,7 @@ import {
   PostsLoadActions,
   PostsUpdateActions,
 } from 'src/app/modules/core/store/posts/posts.actions';
-import { getPosts } from 'src/app/modules/core/store/posts/posts.selector';
+import { selectPosts } from 'src/app/modules/core/store/posts/selector/posts.selector';
 
 import {
   buttonTextEditForm,
@@ -91,7 +91,7 @@ export class PostsPageComponent implements OnInit {
 
   private getAndSetPosts(): void {
     this.store
-      .select(getPosts)
+      .select(selectPosts)
       .pipe(takeUntil(this.destroyed$), skip(1))
       .subscribe((res) => {
         this.postList = res;

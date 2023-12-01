@@ -1,3 +1,5 @@
+import { commentMocked, commentResponseMocked } from './comment.mock';
+
 export const postMocked = {
   id: 1,
   title: 'test',
@@ -22,6 +24,11 @@ export const postThirdMocked = {
   comments: [],
 };
 
-export const PostResponseMocked = [postMocked, postSecondMocked];
+export const postResponseMocked = [postMocked, postSecondMocked];
 
-export const PostResponseReverseMocked = [postSecondMocked, postMocked];
+export const postResponseReverseMocked = [postSecondMocked, postMocked];
+
+export const postWithCommentMocked = {
+  ...postMocked,
+  comments: commentResponseMocked,
+};

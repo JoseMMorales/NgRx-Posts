@@ -21,15 +21,16 @@ import {
   PostsDeleteActions,
   PostsLoadActions,
   PostsUpdateActions,
-} from './posts.actions';
+} from '../posts.actions';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.state';
+import { AppState } from '../../app.state';
 
-import { PostHttpService } from '../../services/api/posts/post-http.service';
+import { PostHttpService } from '../../../services/api/posts/post-http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Post } from '../../../shared/models/post.model';
+import { Post } from '../../../../shared/models/post.model';
 import { TypedAction } from '@ngrx/store/src/models';
+import { selectPosts } from '../selector/posts.selector';
 
 @Injectable()
 export class PostsEffects {
@@ -51,9 +52,7 @@ export class PostsEffects {
           map((postsResponse) => {
             return PostsLoadActions.loadSuccess({ posts: postsResponse });
           }),
-          catchError((error) =>
-            of(PostsLoadActions.loadFailed({ payload: error }))
-          )
+          catchError((error) => of(PostsLoadActions.loadFailed(error)))
         );
       })
     );
@@ -65,11 +64,11 @@ export class PostsEffects {
     CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
       ofType(PostsCreateActions.create),
-      withLatestFrom(this.store$),
-      mergeMap(([action, storeState]) => {
+      withLatestFrom(this.store$.select(selectPosts)),
+      mergeMap(([action, postState]) => {
         return this.postService.createPost(action.post).pipe(
           map((postResponse) => {
-            const postsInStore = storeState.posts.posts;
+            const postsInStore = postState;
             const postsArrayUpdated = [postResponse, ...postsInStore];
 
             return PostsCreateActions.createSuccess({
@@ -90,11 +89,11 @@ export class PostsEffects {
     CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
       ofType(PostsUpdateActions.update),
-      withLatestFrom(this.store$),
+      withLatestFrom(this.store$.select(selectPosts)),
       mergeMap(([action, storeState]) => {
         return this.postService.updatePost(action.post).pipe(
           map((postResponseFromAPI) => {
-            const postsInStore = storeState.posts.posts;
+            const postsInStore = storeState;
 
             const postsArrayUpdated = postsInStore.map((postInStore) => {
               if (postInStore.id === postResponseFromAPI.id) {
@@ -112,7 +111,7 @@ export class PostsEffects {
             });
           }),
           catchError((error) =>
-            of(PostsCreateActions.createFailed({ payload: error }))
+            of(PostsUpdateActions.updateFailed({ payload: error }))
           )
         );
       })
@@ -125,11 +124,11 @@ export class PostsEffects {
     CreateEffectMetadata = createEffect(() => {
     return this.actions$.pipe(
       ofType(PostsDeleteActions.delete),
-      withLatestFrom(this.store$),
+      withLatestFrom(this.store$.select(selectPosts)),
       mergeMap(([action, storeState]) => {
         return this.postService.deletePost(action.id).pipe(
           map(() => {
-            const postsInStore = storeState.posts.posts;
+            const postsInStore = storeState;
             const postRemoved = action.id;
             const postsArrayUpdated = postsInStore.filter(
               (post) => post.id !== postRemoved

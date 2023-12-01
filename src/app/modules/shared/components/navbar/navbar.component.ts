@@ -5,7 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
 import { Store } from '@ngrx/store';
-import { getPosts } from 'src/app/modules/core/store/posts/posts.selector';
+import { selectPosts } from 'src/app/modules/core/store/posts/selector/posts.selector';
 
 import { Post } from '../../models/post.model';
 
@@ -78,7 +78,7 @@ export class NavbarComponent implements OnInit {
 
   private getPostsInNavBar(): void {
     this.store
-      .select(getPosts)
+      .select(selectPosts)
       .pipe(takeUntil(this.destroyed$), skip(1))
       .subscribe((res) => (this.postList = res));
   }

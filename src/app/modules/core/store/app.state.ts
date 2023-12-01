@@ -1,4 +1,4 @@
-import { postsReducer } from './posts/posts.reducer';
+import { postsReducer } from './posts/reducer/posts.reducer';
 
 import { PostState } from './posts/posts.state';
 

@@ -1,8 +1,8 @@
 import { createSelector } from '@ngrx/store';
-import { getIsPostsLoading } from '../posts/posts.selector';
+import { selectIsPostsLoading } from '../posts/selector/posts.selector';
 
 export const getIsSpinnerVisible = createSelector(
-  getIsPostsLoading,
+  selectIsPostsLoading,
 
   (isPostsLoading) => {
     const isSpinnerVisible: boolean = isPostsLoading;

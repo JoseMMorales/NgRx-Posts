@@ -10,7 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { appReducer } from './modules/core/store/app.state';
 import { EffectsModule } from '@ngrx/effects';
-import { PostsEffects } from './modules/core/store/posts/posts.effect';
+import { PostsEffects } from './modules/core/store/posts/effect/posts.effect';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './modules/shared/components/navbar/navbar.component';

@@ -1,12 +1,12 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { PostState, initialState } from './posts.state';
+import { PostState, initialState } from '../posts.state';
 import {
   PostsCommentActions,
   PostsCreateActions,
   PostsDeleteActions,
   PostsLoadActions,
   PostsUpdateActions,
-} from './posts.actions';
+} from '../posts.actions';
 import { Comment } from 'src/app/modules/shared/models/comment.model';
 
 const _postsReducer: ActionReducer<PostState, Action> = createReducer(

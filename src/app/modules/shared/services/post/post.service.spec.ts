@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { PostService } from './post.service';
 import {
-  PostResponseMocked,
-  PostResponseReverseMocked,
+  postResponseMocked,
+  postResponseReverseMocked,
   postMocked,
   postSecondMocked,
   postThirdMocked,
@@ -24,14 +24,14 @@ describe('PostService', () => {
   });
 
   it('should add user id in post (prev)', () => {
-    expect(service.addUserIdInPost(PostResponseMocked, postMocked)).toEqual(
+    expect(service.addUserIdInPost(postResponseMocked, postMocked)).toEqual(
       postThirdMocked
     );
   });
 
   it('should add user id in post (current)', () => {
     expect(
-      service.addUserIdInPost(PostResponseReverseMocked, postMocked)
+      service.addUserIdInPost(postResponseReverseMocked, postMocked)
     ).toEqual(postThirdMocked);
   });
 });
